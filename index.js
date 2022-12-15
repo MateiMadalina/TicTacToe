@@ -55,8 +55,8 @@ function setGameMode(selectedValue) {
             isPlayerXHuman = true;
             isPlayerYHuman = false;
             setHTMLvisibilityForInputGameMode(false);
-             setHTMLvisibilityForInputHumanCoordinates(true);
-             setHTMLvisibilityForButtonLabeledReset(true);
+            setHTMLvisibilityForInputHumanCoordinates(true);
+            setHTMLvisibilityForButtonLabeledReset(true);
             break;
         case 'ai-ai'://Added AI vs AI game option
             isPlayerXHuman = false;
@@ -125,13 +125,13 @@ orderPlayer();
 
 //initializing a variable with the empty function in order to know when the table of x and 0 was completely occupied
 let go = empty(board);
-if (go.length === 0){
-    displayMessage("It's a tie");
-    setHTMLvisibilityForInputGameMode(false);
-    setHTMLvisibilityForInputHumanCoordinates(false);
-    setHTMLvisibilityForInputAiCoordinatesInput(false);
-    setHTMLvisibilityForButtonLabeledReset(true);
-}
+// if (go.length === 0){
+//     displayMessage("It's a tie");
+//     setHTMLvisibilityForInputGameMode(false);
+//     setHTMLvisibilityForInputHumanCoordinates(false);
+//     setHTMLvisibilityForInputAiCoordinatesInput(false);
+//     setHTMLvisibilityForButtonLabeledReset(true);
+// }
 
 //For the 'human-ai' case, in this function currentPlayer will always be '0', and to anticipate the movements of 'X', we created the variable secondPlayer
 let secondPlayer = 'X';
@@ -223,6 +223,15 @@ else{
     }
     }
   
+}
+
+ let tie = empty(board);
+if (tie.length === 0){
+    displayMessage("It's a tie");
+    setHTMLvisibilityForInputGameMode(false);
+    setHTMLvisibilityForInputHumanCoordinates(false);
+    setHTMLvisibilityForInputAiCoordinatesInput(false);
+    setHTMLvisibilityForButtonLabeledReset(true);
 }
 }
     if (isPlayerXHuman === true) {
