@@ -2,19 +2,40 @@ let gameTurn = 0;
 let currentPlayer;
 let board;
 
+
 function empty(board){
 let emptySpace = [];
-for (let i = 0; i < board.length; i++) {
-    for (let j = 0; j < board[i].length; j++) {
-        if (board[i][j] === "") {
-            emptySpace.push([i, j])
+// for (let i = 0; i < board.length; i++) {
+//     for (let j = 0; j < board[i].length; j++) {
+//         if (board[i][j] === "") {
+//             emptySpace.push([i, j])
+//         }
+//     }
+// }
+// console.log(emptySpace);
+board.forEach((element, index1) => {
+    element.forEach((array, index2) => {
+        if(array === ""){
+            emptySpace.push([index1, index2]);
         }
-    }
-}
-//console.log(emptySpace)
+    })
+})
+console.log(emptySpace);
 return emptySpace
-
 }
+
+
+
+function orderPlayer(){
+    if (gameTurn % 2 === 0) {
+        currentPlayer = 'X';
+        displayMessage("Is Player 0's turn")
+
+    } else {
+        currentPlayer = '0';
+        displayMessage("Is Player X's turn")
+    }
+    }
 
 
 // this function will be called whenever the user changes
@@ -61,14 +82,7 @@ function setGameMode(selectedValue) {
 // paramerter: input - the content of the input box
 function processHumanCoordinate(input) {
     console.log(`'processHumanCoordinate('${input}')`);
-    if (gameTurn % 2 === 0) {
-        currentPlayer = 'X';
-        displayMessage("Is Player 0's turn")
-
-    } else {
-        currentPlayer = '0';
-        displayMessage("Is Player X's turn")
-    }
+    orderPlayer();
 
     let coordinates = extractCoordinates(input);
     if (board[coordinates.x][coordinates.y] === ""){
@@ -80,9 +94,6 @@ function processHumanCoordinate(input) {
         }
     } else{
         displayMessage("Position is already taken on board")
-        console.log("Position taken")
-
-
     }
     
     let go = empty(board);
@@ -104,17 +115,6 @@ function processHumanCoordinate(input) {
         setHTMLvisibilityForButtonLabeledReset(true);
     }
     displayBoard(board);
-    
-    // TODO: add a message stating either
-    // Player X's turn
-    // Player O's turn
-    // It's a tie
-    // Player X won 
-    // Player O won 
-
-    // TODO: add conditions to hide the coordinates screen for 
-    // the human player & show for the button to generate AI 
-    // coordinates
 }
 
 
@@ -122,17 +122,7 @@ function processHumanCoordinate(input) {
 // this function is called whenever the user presses
 // the button labeled `Generate AI coordinates`
 function processAICoordinate() {
-    if (gameTurn % 2 === 0) {
-        currentPlayer = 'X';
-        displayMessage("Is Player 0's turn")
-
-    } else {
-        currentPlayer = '0';
-        displayMessage("Is Player X's turn")
-    }
-//prioritizezi daca poate sa castige(cauti in matrice si cauat daca 
-    //pe o linie sau coloana gaseste 2 de y..)
-
+orderPlayer();
 
 let go = empty(board);
 if (go.length === 0){
@@ -148,7 +138,7 @@ if(currentPlayer === 'X'){
 }else{
     secondPlayer = 'X'
 }
-console.log(secondPlayer);
+//console.log(secondPlayer);
 
 let easyLose = getUnbeatableAiCoordinates(board, secondPlayer);
 console.log(easyLose);
@@ -170,6 +160,29 @@ if(easyWin){
        displayBoard(board);
     }else 
     {
+        if(board[1][1] === currentPlayer){
+        if((board[0][0] === board[2][2] && board[0][0] !== '') || (board[0][2] === board[2][0] && board[0][2] !== '' )){
+         let middle = [[0, 1], [1,0], [1,2], [2,1]];
+         let freeMiddle = [];
+         for(let i = 0; i< middle.length ; i++){
+            if(board[middle[i][0]][middle[i][1]] === ''){
+            freeMiddle.push(middle[i]);
+            }}
+            let freeMiddleRand = freeMiddle[Math.floor(Math.random() * freeMiddle.length)]
+            if(freeMiddle.length !== 0){
+                board[freeMiddleRand[0]][freeMiddleRand[1]] = currentPlayer;
+                gameTurn += 1;
+                displayBoard(board);
+                }
+            }
+                else{
+                    let randomAiMove = go[Math.floor(Math.random() * go.length)]
+                    board[randomAiMove[0]][randomAiMove[1]] = currentPlayer;
+                    gameTurn += 1;
+                    displayBoard(board);
+                }
+        }
+        else{
         let corner = [[0, 0], [0, 2], [2, 0], [2, 2]]
         let freeCorner = [];
        
@@ -178,8 +191,7 @@ if(easyWin){
         freeCorner.push(corner[i]);
         }}
         let freeCornerRand = freeCorner[Math.floor(Math.random() * freeCorner.length)]
-        console.log(freeCorner);
-       // if(board[cornerRand[0]][cornerRand[1]] === ''){
+ //       console.log(freeCorner);
         if(freeCorner.length !== 0){
         board[freeCornerRand[0]][freeCornerRand[1]] = currentPlayer;
         gameTurn += 1;
@@ -191,6 +203,7 @@ if(easyWin){
             gameTurn += 1;
             displayBoard(board);
         }
+    }
     }
   
 }
@@ -207,7 +220,6 @@ if(easyWin){
         setHTMLvisibilityForInputAiCoordinatesInput(false);
         setHTMLvisibilityForButtonLabeledReset(true);
     }
-  
 
     //console.log(`processAICoordinate()`);
 }
@@ -218,7 +230,7 @@ if(easyWin){
 // the button labeled `Restart Game`
 function resetGame() {
     location.reload()
-    gameTurn = 0;
+   // gameTurn = 0;
 }
 
 // this function should change from A1..C3 to coordinates
