@@ -156,21 +156,73 @@ function processAICoordinate() {
             } else {
             //Make a check if the middle is already taken by him, and if it is taken and the opponent has the corners of the table taken,
             //then he will generate the movement on a middle position (crosswise)
-                if (board[1][1] === currentPlayer) {
-                    if ((board[0][0] === board[2][2] && board[0][0] !== '') || (board[0][2] === board[2][0] && board[0][2] !== '')) {
-                        let middle = [[0, 1], [1, 0], [1, 2], [2, 1]];
-                        let freeMiddle = [];
-                        for (let i = 0; i < middle.length; i++) {
-                            if (board[middle[i][0]][middle[i][1]] === '') {
-                                freeMiddle.push(middle[i]);
-                            }
+            if (board[1][1] === currentPlayer) {
+                if ((board[0][0] === board[2][2] && board[0][0] !== '') || (board[0][2] === board[2][0] && board[0][2] !== '')) {
+                    let middle = [[0, 1], [1, 0], [1, 2], [2, 1]];
+                    let freeMiddle = [];
+                    for (let i = 0; i < middle.length; i++) {
+                        if (board[middle[i][0]][middle[i][1]] === '') {
+                            freeMiddle.push(middle[i]);
                         }
-                        let freeMiddleRand = freeMiddle[Math.floor(Math.random() * freeMiddle.length)]
-                        if (freeMiddle.length !== 0) {
-                            board[freeMiddleRand[0]][freeMiddleRand[1]] = currentPlayer;
-                            gameTurn += 1;
-                            displayBoard(board);
-                        }
+                    }
+                    let freeMiddleRand = freeMiddle[Math.floor(Math.random() * freeMiddle.length)]
+                    if (freeMiddle.length !== 0) {
+                        board[freeMiddleRand[0]][freeMiddleRand[1]] = currentPlayer;
+                        gameTurn += 1;
+                        displayBoard(board);
+                    }
+                    } else if( board[0][0] === board[1][2] && board[0][0] !== '' && board[0][2] === '')  {
+                        board[0][2] = currentPlayer;
+                        gameTurn += 1;
+                        displayBoard(board);
+                     } else if ( board[0][0] === board[2][1] && board[0][0] !== '' && board[2][0] === '') {
+                        board[2][0] = currentPlayer;                                    
+                        gameTurn += 1;
+                        displayBoard(board);
+                    } else if ( board[0][2] === board[1][0] && board[0][2] !== '' && board[0][0] === '') {        
+                        board[0][0] = currentPlayer;
+                        gameTurn += 1;
+                        displayBoard(board);
+                    } else if ( board[0][2] === board[2][1] && board[0][2] !== '' && board[2][2] === '') {
+                        board[2][2] = currentPlayer;
+                        gameTurn += 1;
+                        displayBoard(board);
+                    } else if ( board[0][0] === board[1][2] && board[0][0] !== '' && board[0][2] === '') {
+                        board[0][2] = currentPlayer;
+                        gameTurn += 1;
+                        displayBoard(board);
+                    } else if ( board[2][0] === board[0][1] && board[2][0] !== '' && board[0][0] === '') {
+                        board[0][0] = currentPlayer;
+                        gameTurn += 1;
+                        displayBoard(board);
+                    } else if ( board[2][0] === board[1][2] && board[2][0] !== '' && board[2][2] === '') {
+                        board[2][2] = currentPlayer;
+                        gameTurn += 1;
+                        displayBoard(board);
+                    } else if ( board[2][2] === board[0][1] && board[2][2] !== '' && board[0][2] === '') {
+                        board[0][2] = currentPlayer;
+                        gameTurn += 1;
+                        displayBoard(board);
+                    } else if ( board[2][2] === board[1][0] && board[2][2] !== '' && board[2][0] === '') {
+                        board[2][0] = currentPlayer;
+                        gameTurn += 1;
+                        displayBoard(board); 
+                    } else if ( board[0][1] === board[1][0] && board[0][1] !== '' && board[0][0] === '') {
+                        board[0][0] = currentPlayer;
+                        gameTurn += 1;
+                        displayBoard(board);
+                    } else if ( board[0][1] === board[1][2] && board[0][1] !== '' && board[0][2] === '') {
+                        board[0][2] = currentPlayer;
+                        gameTurn += 1;
+                        displayBoard(board);
+                    } else if ( board[1][2] === board[2][1] && board[1][2] !== '' && board[2][2] === '') {
+                        board[2][2] = currentPlayer;
+                        gameTurn += 1;
+                        displayBoard(board);
+                    } else if ( board[1][0] === board[2][1] && board[1][0] !== '' && board[2][0] === '') {
+                        board[2][0] = currentPlayer;
+                        gameTurn += 1;
+                        displayBoard(board);
                     }
             //If the opposite corners are not taken by the opponent, then it will generate a move to any available position
                     else {
@@ -254,6 +306,7 @@ function extractCoordinates(input) {
         case "C2": return { x: 2, y: 1 };
         case "C3": return { x: 2, y: 2 };
     }
+    //document.querySelector('.coordinates > input').value = "";
 let cases = ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3"]
 //If a non-existing coordinate is entered in the game, a message will be displayed
     if (!cases.includes(input)){
