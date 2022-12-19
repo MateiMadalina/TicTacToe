@@ -294,7 +294,7 @@ function extractCoordinates(input) {
     // this is a sample of what should be returned if the
     // the user had typed `A1`
     // you need to add the to also treat other cases (A2..C3)
-
+    document.querySelector('.coordinates > input').value = "";
     switch (input) {
         case "A1": return { x: 0, y: 0 };
         case "A2": return { x: 0, y: 1 };
