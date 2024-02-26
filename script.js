@@ -1,9 +1,3 @@
-/* 
-    PLEASE DO NOT MODIFY THESE LINES,
-    THEY ARE REQUIRED FOR THE PROJECT
-    TO WORK
-*/
-
 // this function is called whenever you want to clear the representation
 // of the board (remove x & o). Carefull, the board is NOT updated in html!
 function resetBoard() {

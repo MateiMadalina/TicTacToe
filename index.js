@@ -5,14 +5,6 @@ let board;
 //The empty function has a role in checking which available free positions we still have in the game
 function empty(board) {
     let emptySpace = [];
-    // for (let i = 0; i < board.length; i++) {
-    //     for (let j = 0; j < board[i].length; j++) {
-    //         if (board[i][j] === "") {
-    //             emptySpace.push([i, j])
-    //         }
-    //     }
-    // }
-    // console.log(emptySpace);
     board.forEach((element, index1) => {
         element.forEach((array, index2) => {
             if (array === "") {
@@ -21,7 +13,6 @@ function empty(board) {
             }
         })
     })
-    //console.log(emptySpace);
     return emptySpace;
 }
 //The function that knows that 'X will have moves on even positions and '0' on odd positions
@@ -112,14 +103,6 @@ function processHumanCoordinate(input) {
 function processAICoordinate() {
     orderPlayer();
     let go = empty(board);
-    console.log(go);
-    // if (go.length === 0){
-    //     displayMessage("It's a tie");
-    //     setHTMLvisibilityForInputGameMode(false);
-    //     setHTMLvisibilityForInputHumanCoordinates(false);
-    //     setHTMLvisibilityForInputAiCoordinatesInput(false);
-    //     setHTMLvisibilityForButtonLabeledReset(true);
-    // }
 
     //For the 'human-ai' case, in this function currentPlayer will always be '0', and to anticipate the movements of 'X', we created the variable secondPlayer
     let secondPlayer = 'X';
@@ -140,7 +123,6 @@ function processAICoordinate() {
         gameTurn += 1;
         displayBoard(board);
     } else {
-        //console.log(easyWin)
         //If easyWin is not called, then 'ai' enters the loop of easyLose, in which certain moves are set so that he cannot be defeated
         if (easyLose) {
             board[easyLose[0]][easyLose[1]] = currentPlayer;
@@ -280,7 +262,7 @@ function processAICoordinate() {
         setHTMLvisibilityForInputAiCoordinatesInput(false);
         setHTMLvisibilityForButtonLabeledReset(true);
     }
-    //console.log(`processAICoordinate()`);
+   
 }
 // this function is called when the user clicks on 
 // the button labeled `Restart Game`
